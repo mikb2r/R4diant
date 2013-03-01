@@ -399,10 +399,10 @@ public class Block implements Comparable
 			res[0] = (id%16)/16.0f;
 			res[1] = (id/16)/16.0f;
 			res[2] = (id%16)/16.0f;
-			res[3] = ((id/16) + 1)/16.0f;
-			res[4] = ((id%16) + 1)/16.0f;
-			res[5] = ((id/16) + 1)/16.0f;
-			res[6] = ((id%16) + 1)/16.0f;
+			res[3] = ((id/16) + 1)/16.0f - (1/8192f);
+			res[4] = ((id%16) + 1)/16.0f - (1/8192f);
+			res[5] = ((id/16) + 1)/16.0f - (1/8192f);
+			res[6] = ((id%16) + 1)/16.0f - (1/8192f);
 			res[7] = (id/16)/16.0f;
 			return res;
 		}
