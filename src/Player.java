@@ -33,7 +33,7 @@ public class Player extends Living
 	{
 		world = w;
 		spawn();
-		cl = new ChunkLoader(world, this, 101010);
+		cl = new ChunkLoader(world, this, 1332);
 		world.cl = cl;
 		speed =  5  * (1f/(1000f)); //5 meters per second
 		rotspeed = (float)(  90  * Math.PI/(180*1000)); //90 degrees per second

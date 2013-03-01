@@ -715,6 +715,7 @@ public class Runner
 	    terrain.bind();
 	    
 	    glDrawArrays(GL_QUADS, 0, sidecount*4);
+	    glDeleteBuffers(buffer);
 	}
 	
 	/**
@@ -734,6 +735,8 @@ public class Runner
 					{
 						//if (!player.isInView(world.loaded[chunkx][chunky][chunkz][chunkw]))
 						//	continue;
+						
+						if (chunkx == 1 && chunky == 1 && chunkz == 1 && chunkw == 1 )
 						
 						//all of the following are chunks inside the player's view frustum
 						world.loaded[chunkx][chunky][chunkz][chunkw].loadFromTree(null, vertexdata);

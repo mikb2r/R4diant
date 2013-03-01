@@ -156,9 +156,16 @@ public class Chunk implements Comparable
 		{
 			for (int i = 0; i < tree.head.size(); i++)
 			{
-				if (e.getPosition().compareTo(tree.head.get(i).getPosition()) == 0)
+				if (e.getPosition().add(e.getOffset(true)).compareTo(tree.head.get(i).getPosition().add(e.getOffset(true))) == 0)
 				{
 					//This is a copy?
+					/*
+					if (e.parent != tree.head.get(i).parent)
+					{
+						tree.head.remove(i); //This should fix a tiny graphics error and also make it a bit faster.
+						treesize--;
+					}
+					*/
 					return;
 				}
 			}
@@ -166,7 +173,7 @@ public class Chunk implements Comparable
 			tree.head.add(e);
 			treesize++;
 		}
-		else if (e.comparePlane(tree.head.get(0)) < 0)
+		else if (e.comparePlane(tree.head.get(0)) == -1)
 		{
 			if (tree.leafs.size() > 0)
 			{
@@ -180,7 +187,7 @@ public class Chunk implements Comparable
 				treesize++;
 			}
 		}
-		else if (e.comparePlane(tree.head.get(0)) > 0)
+		else if (e.comparePlane(tree.head.get(0)) == 1)
 		{
 			if (tree.leafs.size() == 2)
 			{
@@ -265,10 +272,10 @@ public class Chunk implements Comparable
 			}
 			
 		}
-		else if (world.player.comparePlane(tree.head.get(0)) < 0)
+		else if (world.player.comparePlane(tree.head.get(0)) == 1)
 		{
-			//the object is in front of the player (I think)
-			//call this function on the objects behind it
+			//the player is in front of the object
+			//render the objects behind it
 			if (tree.leafs.size() >= 1)
 			{
 				loadFromTree(tree.leafs.get(0), list);
@@ -278,16 +285,17 @@ public class Chunk implements Comparable
 			{
 				loadDataFromBlockFace(tree.head.get(i), list);
 			}
+			//render the objects in front of it
 			if (tree.leafs.size() >= 2)
 			{
 				loadFromTree(tree.leafs.get(1), list);
 			}
 			//?
 		}
-		else if (world.player.comparePlane(tree.head.get(0)) > 0)
+		else if (world.player.comparePlane(tree.head.get(0)) == -1)
 		{
-			//the object is behind the player (I think)
-			//call this function on the objects in front of it
+			//the player is behind the object
+			//render the objects in front of it
 			if (tree.leafs.size() >= 2)
 			{
 				loadFromTree(tree.leafs.get(1), list);
@@ -297,6 +305,7 @@ public class Chunk implements Comparable
 			{
 				loadDataFromBlockFace(tree.head.get(i), list);
 			}
+			//render the objects behind it
 			if (tree.leafs.size() >= 1)
 			{
 				loadFromTree(tree.leafs.get(0), list);
@@ -305,7 +314,7 @@ public class Chunk implements Comparable
 		}
 		else if (world.player.comparePlane(tree.head.get(0)) == 0)
 		{
-			//freak out
+			//the object is on the player, freak out
 			System.out.println("?");
 		}
 	}

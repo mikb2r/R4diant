@@ -26,6 +26,7 @@ public class ChunkLoader
 	
 	/**
 	 * Constructs a new Chunk Loader which generates the chunks around the player
+	 * Note: Created inside the player constructor
 	 * @param w - the world reference
 	 * @param p - the player reference
 	 * @param seed - the seed for generation
@@ -218,6 +219,7 @@ public class ChunkLoader
 					for ( int i = 0; i < y; i++ )
 					{
 						ch.data[x][i][z][w] = new Block(ch, (short)((512*w)+(64*z)+(8*i)+x));
+						ch.data[x][i][z][w].id = (short)(Math.random()*7);
 					}
 				}
 			}
